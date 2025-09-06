@@ -7,10 +7,8 @@ class Patient(models.Model):
     date_of_birth = models.DateField()
     email = models.EmailField(unique=True)
 
-
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
-
 
 class Doctor(models.Model):
     first_name = models.CharField(max_length=100)
@@ -20,7 +18,6 @@ class Doctor(models.Model):
 
     def __str__(self) -> str:
         return f"Dr. {self.first_name} {self.last_name}"
-
 
 class PatientDoctorMapping(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='doctor_mappings')

@@ -1,26 +1,20 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from .models import Doctor, PatientDoctorMapping, Patient
 from .serializers import DoctorSerializer, PatientDoctorMappingSerializer, PatientSerializer
 
-
 class IsAuthenticatedOrReadOnly(permissions.IsAuthenticatedOrReadOnly):
     pass
-
-
 class DoctorViewSet(viewsets.ModelViewSet):
     queryset = Doctor.objects.all().order_by('id')
     serializer_class = DoctorSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all().order_by('id')
     serializer_class = PatientSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-
 
 class MappingListCreateView(APIView):
     def get(self, request):
@@ -36,7 +30,6 @@ class MappingListCreateView(APIView):
             mapping = serializer.save()
             return Response(PatientDoctorMappingSerializer(mapping).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class MappingDetailView(APIView):
     def get(self, request, id: int):

@@ -7,12 +7,10 @@ class DoctorSerializer(serializers.ModelSerializer):
         model = Doctor
         fields = ['id', 'first_name', 'last_name', 'specialization', 'email']
 
-
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
         fields = ['id', 'first_name', 'last_name', 'date_of_birth', 'email']
-
 
 class PatientDoctorMappingSerializer(serializers.ModelSerializer):
     patient = PatientSerializer(read_only=True)
